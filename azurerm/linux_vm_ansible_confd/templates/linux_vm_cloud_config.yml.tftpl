@@ -1,0 +1,11 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+runcmd:
+  - apt install git -y
+  - apt install ansible-core -y
+  - mkdir -p /tmp/${admin_username}
+  - git clone --recurse-submodules ${ansible_playbook_url} /tmp/${admin_username}/playbooks
+  - echo "[all]\nlocalhost ansible_connection=local" > /tmp/${admin_username}/playbooks/localhost
+  - ansible-playbook -i /tmp/${admin_username}/playbooks/localhost /tmp/${admin_username}/playbooks/${ansible_playbook_name}
+
