@@ -10,6 +10,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   user_data = var.ansible_playbook_name=="" || var.ansible_playbook_url=="" ? null : base64encode(templatefile("${path.module}/templates/linux_vm_cloud_config.yml.tftpl", {
     ansible_playbook_url  = var.ansible_playbook_url
     ansible_playbook_name = var.ansible_playbook_name
+    ansible_extra_vars    = var.ansible_extra_vars
     admin_username        = var.admin_username
   }))
 

@@ -66,3 +66,7 @@ variable vm_nsg_rules {
     }))
 }
 
+variable "ansible_extra_vars" {
+  type = string
+  default = ""
+}
