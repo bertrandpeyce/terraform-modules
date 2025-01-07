@@ -15,6 +15,5 @@ runcmd:
   - echo "[all]\nlocalhost ansible_connection=local" > $CFG_PLAYBOOK_INVENTORY_FILE
   - ansible-galaxy install -r $CFG_PLAYBOOK_DIR/requirements.yml 2> /dev/null
   - source $CFG_PLAYBOOK_DIR/.env 2> /dev/null
-  - echo "{ansible_extra_vars}" > $CFG_PLAYBOOK_DIR/vars.yml
-  - ansible-playbook -i $CFG_PLAYBOOK_INVENTORY_FILE $CFG_PLAYBOOK_FILE --extra-vars "@$CFG_PLAYBOOK_DIR/vars.yml"
+  - ansible-playbook -i $CFG_PLAYBOOK_INVENTORY_FILE $CFG_PLAYBOOK_FILE
 
