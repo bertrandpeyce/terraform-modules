@@ -9,11 +9,15 @@ runcmd:
   - export CFG_PLAYBOOK_URL="${ansible_playbook_url}"
   - export CFG_PLAYBOOK_DIR="$CFG_TMP_DIR/${admin_username}/playbooks"
   - export CFG_PLAYBOOK_NAME="${ansible_playbook_name}"
-  - export CFG_PLAYBOOK_INVENTORY_FILE="$CFG_PLAYBOOK_DIR/localhost"
-  - export CFG_PLAYBOOK_FILE="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_NAME"
+  - export CFG_PLAYBOOK_SUBDIR=$(dirname $CFG_PLAYBOOK_NAME)
+  - export CFG_PLAYBOOK_FILENAME=$(basename $CFG_PLAYBOOK_NAME)
+  - export CFG_PLAYBOOK_INVENTORY_PATH="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_SUBDIR/localhost"
+  - export CFG_PLAYBOOK_PATH="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_SUBDIR/$CFG_PLAYBOOK_FILENAME"
+  - export CFG_PLAYBOOK_REQUIREMENTS_PATH="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_SUBDIR/requirements.yml"
+  - export CFG_PLAYBOOK_ENVFILE_PATH="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_SUBDIR/.env"
   - git clone --recurse-submodules $CFG_PLAYBOOK_URL $CFG_PLAYBOOK_DIR
-  - echo "[all]\nlocalhost ansible_connection=local" > $CFG_PLAYBOOK_INVENTORY_FILE
-  - ansible-galaxy install -r $CFG_PLAYBOOK_DIR/requirements.yml 2> /dev/null
-  - source $CFG_PLAYBOOK_DIR/.env 2> /dev/null
-  - ansible-playbook -i $CFG_PLAYBOOK_INVENTORY_FILE $CFG_PLAYBOOK_FILE
+  - echo "[all]\nlocalhost ansible_connection=local" > $CFG_PLAYBOOK_INVENTORY_PATH
+  - ansible-galaxy install -r $CFG_PLAYBOOK_REQUIREMENTS_PATH 2> /dev/null
+  - source $CFG_PLAYBOOK_ENVFILE_PATH 2> /dev/null
+  - ansible-playbook -i $CFG_PLAYBOOK_INVENTORY_PATH $CFG_PLAYBOOK_PATH
 
