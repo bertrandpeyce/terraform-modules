@@ -12,8 +12,7 @@ runcmd:
   - export CFG_PLAYBOOK_INVENTORY_FILE="$CFG_PLAYBOOK_DIR/localhost"
   - export CFG_PLAYBOOK_FILE="$CFG_PLAYBOOK_DIR/$CFG_PLAYBOOK_NAME"
   - git clone --recurse-submodules $CFG_PLAYBOOK_URL $CFG_PLAYBOOK_DIR
-  - echo "[all]\nlocalhost ansible_connection=local" > $CFG_PLAYBOOK_INVENTORY_FILE
   - ansible-galaxy install -r $CFG_PLAYBOOK_DIR/requirements.yml 2> /dev/null
   - source $CFG_PLAYBOOK_DIR/.env 2> /dev/null
-  - ansible-playbook -i $CFG_PLAYBOOK_INVENTORY_FILE $CFG_PLAYBOOK_FILE
+  - ansible-playbook -i localhost ansible_connection=local, $CFG_PLAYBOOK_INVENTORY_FILE $CFG_PLAYBOOK_FILE
 
