@@ -7,11 +7,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   admin_password        = var.admin_password
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = var.vm_size
-  user_data = var.ansible_playbook_name == "" || var.ansible_playbook_url == "" ? null : base64encode(templatefile("${path.module}/templates/linux_vm_cloud_config.yml.tftpl", {
-    ansible_playbook_url  = var.ansible_playbook_url
-    ansible_playbook_name = var.ansible_playbook_name
-    admin_username        = var.admin_username
-  }))
+  user_data = var.ansible_playbook_name == "" || var.ansible_playbook_url == "" || var.vm_user_data_template == "" ? null : base64encode(templatefile(var.vm_user_data_template, var.vm_user_data_variables ))
 
   tags = var.vm_tags
 

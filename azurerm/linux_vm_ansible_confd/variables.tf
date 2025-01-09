@@ -66,3 +66,14 @@ variable vm_nsg_rules {
     }))
 }
 
+variable "vm_user_data_template" {
+  type = string
+  default = ""
+}
+
+variable "vm_user_data_variables" {
+  type = map(any)
+  default = {
+  }
+}
+
