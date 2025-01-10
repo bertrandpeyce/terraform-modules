@@ -25,8 +25,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     storage_account_type = "Standard_LRS"
   }
   source_image_reference {
-    sku       = "server"
-    offer     = "ubuntu-24_04-lts"
+    sku       = "22_04-lts-gen2"
+    offer     = "0001-com-ubuntu-server-jammy"
     publisher = "Canonical"
     version   = "latest"
   }
